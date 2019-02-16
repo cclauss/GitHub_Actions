@@ -8,7 +8,7 @@ action "Python Style Checker" {
 }
 
 action "Python Syntax Checker" {
-  uses = "cclauss/GitHub_Actions/Python Style Checker@master"
+  uses = "cclauss/GitHub_Actions/Python Syntax Checker@master"
 }
 
 action "GitHub Action for Flake8" {
