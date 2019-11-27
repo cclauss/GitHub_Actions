@@ -14,7 +14,8 @@ jobs:
           import sys
           print(sys.version_info)  # legacy Python :-(
           with open("git_diff.txt") as in_file:
-            cpp_files = sorted(line.strip() for line in in_file if line.strip().lower().endswith(".cpp"))
+            cpp_files = sorted(line.strip() for line in in_file
+                               if line.strip().lower().endswith(".cpp"))
 
           upper_files = [file for file in cpp_files if file != file.lower()]
           if upper_files:
@@ -32,9 +33,5 @@ jobs:
             print("\n".join(nodir_files) + "\n")
 
           bad_files = len(upper_files + space_files + nodir_files)
-          # if bad_files:
-          #   sys.exit(bad_files)
-      - shell: python3
-        run: |
-          import sys
-          print(sys.version_info)  # legacy Python :-(
+          if bad_files:
+            sys.exit(bad_files)
