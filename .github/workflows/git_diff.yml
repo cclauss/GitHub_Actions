@@ -1,16 +1,20 @@
 name: git_diff
-on: [pull_request]
+on: [push, pull_request]
 jobs:
   git_diff:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
-      - run: git diff master
-      - run: git diff master --name-only
-      - run: git diff master --name-only > git_diff.txt
+      - run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git remote -v || true
+          git branch || true
+      - run: git diff origin/master
+      - run: git diff origin/master --name-only
+      - run: git diff origin/master --name-only > git_diff.txt
       - id: git_diff
-        run: echo "##[set-output name=git_diff;]$(git diff master --name-only)"
+        run: echo "##[set-output name=git_diff;]$(git diff origin/master --name-only)"
       - shell: python
         run: |
           print(0)
