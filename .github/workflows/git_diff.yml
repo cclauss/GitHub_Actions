@@ -21,8 +21,8 @@ jobs:
           with open("git_diff.txt") as in_file:
               print(in_file.read())
           print(1)
-            - shell: python
-      - run: import os, sys ; print(sys.version_info, os.environ)
+      - shell: python
+        run: import os, sys ; print(sys.version_info, os.environ)
       - run: echo ${{ format(steps.git_diff.outputs.git_diff) }} || true
       - run: echo ${{ steps.git_diff.outputs.git_diff }} || true
       - run: echo ${steps.git_diff.outputs.git_diff} || true
