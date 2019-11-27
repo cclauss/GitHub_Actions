@@ -8,6 +8,7 @@ jobs:
       - uses: actions/setup-python@v1
       - id: git_diff
         run: echo "##[set-output name=git_diff;]$(git diff --name-only)"
-      - run: echo ${{ format(steps.git_diff.outputs) }} || true
-      - run: echo ${{ steps.git_diff.outputs }} || true
-      - run: echo $steps.git_diff.outputs || true
+      - run: echo ${{ format(steps.git_diff.outputs.git_diff) }} || true
+      - run: echo ${{ steps.git_diff.outputs.git_diff }} || true
+      - run: echo ${steps.git_diff.outputs.git_diff} || true
+      - run: echo $steps.git_diff.outputs.git_diff || true
