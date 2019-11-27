@@ -1,5 +1,5 @@
 name: git_diff
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   git_diff:
     runs-on: ubuntu-latest
