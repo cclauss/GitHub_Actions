@@ -6,11 +6,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
+      - run: git diff --name-only > git_diff.txt
       - id: git_diff
         run: echo "##[set-output name=git_diff;]$(git diff --name-only)"
       - shell: python
-        run: import os, sys ; print(sys.version_info, os.environ)
-      - run: echo ${{ format(steps.git_diff.outputs.git_diff) }} || true
-      - run: echo ${{ steps.git_diff.outputs.git_diff }} || true
-      - run: echo ${steps.git_diff.outputs.git_diff} || true
-      - run: echo $steps.git_diff.outputs.git_diff || true
+        run: |
+          with open(git_diff.txt) as in_file:
+              print(in_file.read())
