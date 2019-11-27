@@ -6,23 +6,30 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
-      - run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git remote -v || true
-          git branch || true
-      - run: git diff origin/master
-      - run: git diff origin/master --name-only
+      - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
       - run: git diff origin/master --name-only > git_diff.txt
-      - id: git_diff
-        run: echo "##[set-output name=git_diff;]$(git diff origin/master --name-only)"
       - shell: python
         run: |
-          print(0)
+          import sys
+          print(sys.version_info)  # legacy Python :-(
           with open("git_diff.txt") as in_file:
-              print(in_file.read())
-          print(1)
-      - shell: python
-        run: import os, sys ; print(sys.version_info, os.environ)
-      - run: echo ${{ format(steps.git_diff.outputs.git_diff) }} || true
-      - run: echo ${{ steps.git_diff.outputs.git_diff }} || true
-      - run: echo ${steps.git_diff.outputs.git_diff} || true
+            cpp_files = sorted(line for line in in_file if line.lower().endswith(".cpp"))
+
+          upper_files = [file for file in filepaths if file != file.lower()]
+          if upper_files:
+            print("{} files contain uppercase characters:".format(len(upper_files)))
+            print("\n".join(upper_files) + "\n")
+
+          space_files = [file for file in filepaths if " " in file or "-" in file]
+          if space_files:
+            print("{} files contain space or dash characters:".format(len(space_files)))
+            print("\n".join(space_files) + "\n")
+
+          nodir_files = [file for file in filepaths if os.sep not in file]
+          if nodir_files:
+            print("{} files are not in a directory:".format(len(nodir_files)))
+            print("\n".join(nodir_files) + "\n")
+
+          bad_files = len(upper_files + space_files + nodir_files)
+          if bad_files:
+            sys.exit(bad_files)
