@@ -10,6 +10,7 @@ jobs:
       - name: Validate filenames
         shell: python
         run: |
+          import os
           import sys
           print(sys.version_info)  # legacy Python :-(
           with open("git_diff.txt") as in_file:
@@ -33,3 +34,7 @@ jobs:
           bad_files = len(upper_files + space_files + nodir_files)
           if bad_files:
             sys.exit(bad_files)
+      - shell: python3
+        run: |
+          import sys
+          print(sys.version_info)  # legacy Python :-(
