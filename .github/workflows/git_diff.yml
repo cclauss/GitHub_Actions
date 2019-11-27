@@ -6,6 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
+      - run: git diff
+      - run: git diff --name-only
       - run: git diff --name-only > git_diff.txt
       - id: git_diff
         run: echo "##[set-output name=git_diff;]$(git diff --name-only)"
