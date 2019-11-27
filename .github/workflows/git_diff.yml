@@ -11,5 +11,7 @@ jobs:
         run: echo "##[set-output name=git_diff;]$(git diff --name-only)"
       - shell: python
         run: |
+          print(0)
           with open("git_diff.txt") as in_file:
               print(in_file.read())
+          print(1)
