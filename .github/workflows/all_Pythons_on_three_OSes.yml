@@ -1,7 +1,7 @@
-# name: Python Tests
+name: Python_tests
 on: [push, pull_request]
 jobs:
-  Python-tests:
+  Python_tests:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
