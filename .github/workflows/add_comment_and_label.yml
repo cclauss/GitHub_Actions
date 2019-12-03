@@ -12,14 +12,22 @@ jobs:
       - run: pip install github3.py
       # - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
       # - run: git diff origin/master --name-only > git_diff.txt
+      - run: ls ./.github/scripts
+      - run: ./.github/scripts/decrypt_secret.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Add a comment and a label
+        # with: # Set the secret as an input
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        # env: # Or as an environment variable
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: python
         run: |
           import os
           import sys
           from github3 import login
           print(sys.version_info)
-          print("\n".join(f"{key}: {value}" for key, value in sorted(os.environ.items())))
+          print("\n".join(f"{key}: xxx" for key, value in sorted(os.environ.items())))
           # print(os.environ)
           gh = login(token=secrets.GITHUB_TOKEN)
           print(gh.name)
