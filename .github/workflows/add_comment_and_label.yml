@@ -8,8 +8,9 @@ jobs:
       - uses: actions/setup-python@v1
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Upgrade to Python 3.8
-        run: sudo update-alternatives --install /usr/bin/python python ${pythonLocation}/bin/python3.8 10
+      - shell: python
+        run: import sys ; print("Python {}.{}.{}".format(*sys.version_info))  # Legacy Python :-(
+      - run: sudo update-alternatives --install /usr/bin/python python ${pythonLocation}/bin/python3.8 10
       - run: pip install github3.py
       # - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
       # - run: git diff origin/master --name-only > git_diff.txt
@@ -27,9 +28,9 @@ jobs:
           import os
           import sys
           from github3 import login
+          print("Python {}.{}.{}".format(*sys.version_info))
           print(globals())
-          print(sys.version_info)
-          print("\n".join(f"{key}: xxx" for key, value in sorted(os.environ.items())))
+          print("\n".join(f"{key}: {value}" for key, value in sorted(os.environ.items())))
           # print(os.environ)
           gh = login(token=GITHUB_TOKEN)
           print(gh.name)
