@@ -1,0 +1,21 @@
+name: add_comment_and_label
+on: [push, pull_request]
+jobs:
+  add_comment_and_label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+      - run: pip install github3.py
+      # - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+      # - run: git diff origin/master --name-only > git_diff.txt
+      - name: Add a comment and a label
+        shell: python
+        run: |
+          import os
+          print(os.environ)
+          from github3 import login
+          gh = login(token=secrets.GITHUB_TOKEN)
+          print(gh.name())
+          print(gh.login)
+          print(gh.followers_count)
