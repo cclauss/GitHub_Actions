@@ -19,7 +19,7 @@ jobs:
           import sys
           from github3 import login
           print(sys.version_info)
-          print("\n".join(f"{key}: {value}" for key, value in sorted(os.environ.values())))
+          print("\n".join(f"{key}: {value}" for key, value in sorted(os.environ.items())))
           # print(os.environ)
           gh = login(token=secrets.GITHUB_TOKEN)
           print(gh.name)
