@@ -25,7 +25,7 @@ jobs:
           from github3 import login
           print(globals())
           print(sys.version_info)
-          # print("\n".join(f"{key}: xxx" for key, value in sorted(os.environ.items())))
+          print("\n".join(f"{key}: xxx" for key, value in sorted(os.environ.items())))
           # print(os.environ)
           gh = login(token=GITHUB_TOKEN)
           print(gh.name)
