@@ -6,8 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: Upgrade to Python 3.8
-        # shell: bash
         run: sudo update-alternatives --install /usr/bin/python python ${pythonLocation}/bin/python3.8 10
       - run: pip install github3.py
       # - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
