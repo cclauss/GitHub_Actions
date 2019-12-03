@@ -13,6 +13,10 @@ jobs:
       - run: pip install github3.py
       # - run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
       # - run: git diff origin/master --name-only > git_diff.txt
+      - run: |
+          mkdir $HOME/secrets
+          gpg --quiet --batch --yes --decrypt --passphrase="LARGE_SECRET_PASSPHRASE" --output $HOME/secrets/my_secret.json my_secret.json.gpg
+      - run: cat $HOME/secrets/my_secret.json
       - name: Add a comment and a label
         # with: # Set the secret as an input
         #   github_token: ${{ secrets.GITHUB_TOKEN }}
