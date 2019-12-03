@@ -20,7 +20,7 @@ jobs:
         #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: python
         run: |
-          # import os
+          import os
           import sys
           from github3 import login
           print(globals())
