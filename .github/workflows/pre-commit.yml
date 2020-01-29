@@ -1,4 +1,5 @@
 # https://pre-commit.com
+# This Action assumes that the repo contains a valid .pre-commit-config.yaml file
 name: pre-commit
 on: [push, pull_request]
 jobs:
